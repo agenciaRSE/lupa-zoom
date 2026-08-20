@@ -1,0 +1,12 @@
+# Empaquetado
+*.zip
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.idea/
+.vscode/
+*.swp

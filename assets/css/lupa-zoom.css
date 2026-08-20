@@ -1,0 +1,135 @@
+/*!
+ * Lupa Zoom v1.1.0
+ */
+
+/* Contenedor -----------------------------------------------------------
+ * Puede ser un <span> creado por el plugin (.is-wrapper) o un elemento que
+ * ya existía en el markup del tema o del constructor. En el segundo caso se
+ * tocan solo las propiedades imprescindibles para no romper el diseño.
+ */
+
+.lupa-zoom-container {
+	position: relative;
+}
+
+.lupa-zoom-container.lupa-mode-inner {
+	overflow: hidden;
+}
+
+.lupa-zoom-container.is-ready {
+	cursor: crosshair;
+}
+
+/* Solo para el wrapper que genera el plugin. */
+.lupa-zoom-container.is-wrapper {
+	display: inline-block;
+	max-width: 100%;
+	line-height: 0;
+	vertical-align: top;
+}
+
+.lupa-zoom-container.is-wrapper.is-fluid {
+	display: block;
+	width: 100%;
+}
+
+.lupa-zoom-container.is-wrapper > img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Capa ampliada -------------------------------------------------------- */
+
+.lupa-zoom-layer {
+	position: absolute;
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	opacity: 0;
+	pointer-events: none;
+	transition-property: opacity;
+	transition-timing-function: ease;
+	transition-duration: 150ms;
+	z-index: 2;
+}
+
+.lupa-zoom-container.is-active .lupa-zoom-layer {
+	opacity: 1;
+}
+
+/* Modo fondo CSS: la capa se pinta sobre el background del elemento pero por
+ * debajo de su contenido (títulos, botones, overlays del builder). */
+.lupa-zoom-container.lupa-is-background.lupa-mode-inner .lupa-zoom-layer {
+	z-index: -1;
+	background-color: transparent;
+}
+
+/* Modo lupa + panel lateral -------------------------------------------- */
+
+.lupa-zoom-container.lupa-mode-lens {
+	overflow: visible;
+}
+
+.lupa-mode-lens .lupa-zoom-layer {
+	top: 0;
+	left: 100%;
+	width: auto;
+	margin-left: 16px;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+	background-color: #fff;
+	z-index: 999;
+}
+
+.lupa-mode-lens.lupa-panel-left .lupa-zoom-layer {
+	left: auto;
+	right: 100%;
+	margin-left: 0;
+	margin-right: 16px;
+}
+
+.lupa-zoom-lens {
+	position: absolute;
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	display: block;
+	border: 1px solid rgba(255, 255, 255, 0.85);
+	outline: 1px solid rgba(0, 0, 0, 0.35);
+	background: rgba(255, 255, 255, 0.18);
+	opacity: 0;
+	pointer-events: none;
+	transition-property: opacity;
+	transition-timing-function: ease;
+	transition-duration: 150ms;
+	will-change: transform;
+	z-index: 3;
+}
+
+.lupa-zoom-container.is-active .lupa-zoom-lens {
+	opacity: 1;
+}
+
+/* En pantallas pequeñas no hay sitio para el panel lateral: se desactiva. */
+@media (max-width: 782px) {
+	.lupa-zoom-container.lupa-mode-lens {
+		overflow: hidden;
+	}
+
+	.lupa-mode-lens .lupa-zoom-layer,
+	.lupa-zoom-lens {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lupa-zoom-layer,
+	.lupa-zoom-lens {
+		transition-duration: 0ms !important;
+	}
+}

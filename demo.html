@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lupa Zoom — demo</title>
+<link rel="stylesheet" href="assets/css/lupa-zoom.css">
+<style>
+	body { font: 15px/1.5 system-ui, sans-serif; margin: 0; padding: 32px; background: #f6f7f7; color: #1d2327; }
+	h1 { font-size: 21px; margin: 0 0 4px; }
+	p.intro { margin: 0 0 24px; color: #646970; }
+	.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; }
+	.card { background: #fff; padding: 16px; border: 1px solid #dcdcde; border-radius: 6px; }
+	.card h2 { font-size: 12px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .05em; color: #646970; }
+	.card code { font-size: 11px; color: #2271b1; }
+
+	/* Caja con proporción fija + recorte: patrón típico de los builders. */
+	.ratio-box img { width: 100%; height: 200px; object-fit: cover; display: block; }
+
+	/* Elemento con imagen de fondo CSS. */
+	.bg-hero {
+		height: 200px;
+		background-image: url('https://picsum.photos/id/1080/2400/1600');
+		background-size: cover;
+		background-position: center;
+		display: flex; align-items: center; justify-content: center;
+	}
+	.bg-hero span.title { color: #fff; font-weight: 700; font-size: 20px; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+
+	.card img:not(.ratio-box img) { max-width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+
+<h1>Lupa Zoom — demo sin WordPress</h1>
+<p class="intro">Pasa el ratón por encima. La clase <code>lupa</code> va en un sitio distinto en cada caso.</p>
+
+<div class="grid">
+
+	<div class="card">
+		<h2>1 · Clase en la propia &lt;img&gt;</h2>
+		<img class="lupa" src="https://picsum.photos/id/292/840/560"
+		     data-lupa-src="https://picsum.photos/id/292/2400/1600" alt="">
+		<code>&lt;img class="lupa"&gt;</code>
+	</div>
+
+	<div class="card">
+		<h2>2 · Widget Elementor</h2>
+		<div class="elementor-widget elementor-widget-image lupa">
+			<div class="elementor-widget-container">
+				<img src="https://picsum.photos/id/1080/840/560"
+				     srcset="https://picsum.photos/id/1080/840/560 840w, https://picsum.photos/id/1080/2400/1600 2400w"
+				     alt="">
+			</div>
+		</div>
+		<code>.lupa en el widget</code>
+	</div>
+
+	<div class="card">
+		<h2>3 · Widget WPBakery</h2>
+		<div class="wpb_single_image wpb_content_element lupa">
+			<figure class="wpb_wrapper vc_figure">
+				<div class="vc_single_image-wrapper vc_box_border_grey">
+					<img src="https://picsum.photos/id/431/840/560"
+					     data-lupa-src="https://picsum.photos/id/431/2400/1600" alt="">
+				</div>
+			</figure>
+		</div>
+		<code>.lupa en .wpb_single_image</code>
+	</div>
+
+	<div class="card">
+		<h2>4 · Recorte object-fit: cover</h2>
+		<div class="ratio-box lupa">
+			<img src="https://picsum.photos/id/312/840/560"
+			     data-lupa-src="https://picsum.photos/id/312/2400/1600" alt="">
+		</div>
+		<code>height fija + object-fit: cover</code>
+	</div>
+
+	<div class="card">
+		<h2>5 · background-image CSS</h2>
+		<div class="bg-hero lupa"><span class="title">Texto encima</span></div>
+		<code>sin &lt;img&gt;, fondo CSS</code>
+	</div>
+
+	<div class="card">
+		<h2>6 · Lazy-load (placeholder)</h2>
+		<div class="lazy-widget lupa">
+			<img id="lazy" alt=""
+			     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='840' height='560'%3E%3C/svg%3E"
+			     data-src="https://picsum.photos/id/106/840/560"
+			     data-lupa-src="https://picsum.photos/id/106/2400/1600">
+		</div>
+		<code>src se sustituye a los 800 ms</code>
+	</div>
+
+	<div class="card">
+		<h2>7 · Modo lens en wrapper</h2>
+		<div class="elementor-widget-container lupa" data-lupa-mode="lens">
+			<img src="https://picsum.photos/id/225/840/560"
+			     data-lupa-src="https://picsum.photos/id/225/2400/1600" alt="">
+		</div>
+		<code>data-lupa-mode="lens"</code>
+	</div>
+
+</div>
+
+<script>
+	window.LupaZoomConfig = {
+		selector: '.lupa',
+		mode: 'inner',
+		zoom: 0,
+		minZoom: 1.5,
+		maxZoom: 6,
+		lensSize: 150,
+		panelWidth: 320,
+		fade: 150,
+		touch: false
+	};
+
+	// Simula un plugin de lazy-load.
+	setTimeout(function () {
+		var el = document.getElementById('lazy');
+		el.src = el.getAttribute('data-src');
+	}, 800);
+</script>
+<script src="assets/js/lupa-zoom.js"></script>
+</body>
+</html>
