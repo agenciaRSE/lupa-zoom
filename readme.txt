@@ -1,5 +1,5 @@
 === Lupa Zoom ===
-Contributors: agenciarse
+Contributors: dmeijide
 Tags: zoom, lupa, imagen, woocommerce, magnifier
 Requires at least: 5.6
 Tested up to: 6.8
