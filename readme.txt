@@ -1,73 +1,99 @@
 === Lupa Zoom ===
 Contributors: dmeijide
-Tags: zoom, lupa, imagen, woocommerce, magnifier
+Tags: image zoom, magnifier, hover zoom, woocommerce, elementor
 Requires at least: 5.6
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 7.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Efecto lupa tipo WooCommerce (zoom al pasar el ratón) para cualquier imagen de cualquier tema de WordPress.
+WooCommerce-style hover zoom for any image in any theme. Add the lupa class and the image zooms in under the cursor.
 
 == Description ==
 
-Añade la clase `lupa` y al pasar el ratón se amplía la zona bajo el cursor,
-siguiéndolo por toda la imagen — el mismo comportamiento que el zoom de producto
-de WooCommerce, pero sin depender ni de WooCommerce ni del tema.
+Add the `lupa` CSS class and, on hover, the image zooms in on the area under the
+cursor and follows it across the image. It is the same behaviour as the
+WooCommerce product zoom, without depending on WooCommerce or on the theme.
 
-* La clase vale en la propia `<img>` **o en cualquier contenedor**: widget de
-  Elementor, elemento de WPBakery, figure, enlace…
-* También funciona en elementos cuya imagen es un `background-image` de CSS.
-* Respeta `object-fit: cover/contain` y las cajas con proporción fija que
-  generan los constructores: amplía justo el recorte que se está viendo.
-* Sin jQuery ni librerías externas (~9 KB).
-* Dos modos: zoom interno (por defecto) o lupa + panel lateral.
-* Nivel de zoom automático según la resolución real del archivo original.
-* Compatible con lazy-load (espera a que se sustituya el placeholder).
-* Funciona con contenido cargado por AJAX, sliders y Elementor (MutationObserver).
-* Opcional en táctil: mantener el dedo y arrastrar.
-* Página de ajustes en Ajustes → Lupa Zoom.
+* The class works on the `<img>` itself **or on any block that wraps it**: an
+  Elementor widget, a WPBakery element, a figure, a link…
+* It also works on elements whose image is a CSS `background-image`.
+* It respects `object-fit: cover/contain` and the fixed-ratio boxes that page
+  builders create: it zooms into exactly the crop you see.
+* No jQuery and no external libraries (about 7 KB gzipped).
+* Two modes: inner zoom (default) or lens with a side panel.
+* Automatic zoom level based on the real resolution of the original file.
+* Works with lazy loading (it waits for the placeholder to be replaced).
+* Works with content loaded by AJAX, sliders and Elementor (MutationObserver).
+* Optional on touch screens: press and drag.
+* Settings in *Settings > Lupa Zoom*.
 
-== Uso ==
+"Lupa" is Spanish for magnifying glass.
+
+= Usage =
 
 HTML:
 
-    <img src="foto-800.jpg" data-lupa-src="foto-2000.jpg" class="lupa" alt="" />
+    <img src="photo-800.jpg" data-lupa-src="photo-2000.jpg" class="lupa" alt="" />
 
-Constructor visual — la clase va en el widget, la imagen queda dentro:
+Page builders: put the class on the widget and the image stays inside it.
 
-    <div class="elementor-widget-image lupa">
-        <div class="elementor-widget-container"><img src="foto.jpg" /></div>
-    </div>
-
-En Elementor: Avanzado → Clases CSS → `lupa`.
-En WPBakery: Extra class name → `lupa`.
+* Elementor: *Advanced > CSS Classes >* `lupa`
+* WPBakery: *Extra class name >* `lupa`
 
 Shortcode:
 
-    [lupa id="123"]
-    [lupa src="foto.jpg" large="foto-full.jpg" zoom="3" mode="lens"]
+    [lupa_zoom id="123"]
+    [lupa_zoom src="photo.jpg" large="photo-full.jpg" zoom="3" mode="lens"]
 
-Atributos por imagen: `data-lupa-src`, `data-lupa-zoom`, `data-lupa-mode`,
+Per-image attributes: `data-lupa-src`, `data-lupa-zoom`, `data-lupa-mode`,
 `data-lupa-lens`.
 
-API JS: `LupaZoom.refresh()`, `LupaZoom.destroyAll()`, evento
-`document.dispatchEvent(new CustomEvent('lupa:refresh'))`.
+JavaScript API: `LupaZoom.refresh()`, `LupaZoom.destroyAll()` and the
+`lupa:refresh` event (`document.dispatchEvent(new CustomEvent('lupa:refresh'))`).
 
-Filtros PHP: `lupa_zoom_should_enqueue`, `lupa_zoom_config`.
+PHP filters: `lupa_zoom_should_enqueue`, `lupa_zoom_config`.
+
+The plugin makes no external requests and stores no visitor data.
+
+== Installation ==
+
+1. Install the plugin from *Plugins > Add New*, or upload the `lupa-zoom` folder to `/wp-content/plugins/`.
+2. Activate it.
+3. Add the `lupa` class to an image or to the block that wraps it.
+4. Optional: adjust the mode and zoom level in *Settings > Lupa Zoom*.
+
+== Frequently Asked Questions ==
+
+= Does it need WooCommerce? =
+
+No. It works on any image. With WooCommerce you can also apply it to the product
+gallery and turn off the built-in zoom to avoid a double zoom.
+
+= Which image does it zoom into? =
+
+The one in `data-lupa-src` if present. Otherwise it picks the largest image in the
+`srcset`, and if there is none, the `src`.
+
+= How do I load it only on some pages? =
+
+Return `false` from the `lupa_zoom_should_enqueue` filter on the pages where you
+don't need it.
 
 == Changelog ==
 
+= 1.2.0 =
+* Settings screen in English, with every string translatable.
+* The shortcode is now `[lupa_zoom]`, prefixed to avoid clashes with other plugins.
+* Settings are removed when the plugin is deleted.
+
 = 1.1.0 =
-* La clase se puede aplicar al contenedor del widget, no solo a la `<img>`.
-* Soporte para elementos con `background-image` de CSS.
-* La geometría se mide sobre la imagen real, no sobre el wrapper: el zoom ya no
-  se descuadra cuando el contenedor es mayor que la imagen.
-* Se respetan `object-fit` y `object-position` (recortes tipo cover).
-* Compatibilidad con lazy-load y con `data-large_image` de WooCommerce.
-* Se reutiliza el contenedor existente en vez de inyectar un wrapper cuando es
-  posible, para no romper los estilos del constructor.
+* The class can go on the widget's wrapper, not only on the `<img>`.
+* Support for elements with a CSS `background-image`.
+* Geometry is measured on the real image, not on the wrapper.
+* `object-fit` and `object-position` are respected.
+* Works with lazy loading and with WooCommerce `data-large_image`.
 
 = 1.0.0 =
-* Versión inicial.
+* Initial release.

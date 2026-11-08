@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Lupa Zoom\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "Lupa Zoom"
+msgstr "Lupa Zoom"
+
+msgid "WooCommerce-style hover zoom for any image in any theme. Add the <code>lupa</code> CSS class to the image or to the block that wraps it (Elementor widget, WPBakery element, etc.)."
+msgstr "Efecto lupa (zoom al pasar el ratón) tipo WooCommerce para cualquier imagen de cualquier tema. Basta con añadir la clase CSS <code>lupa</code> a la imagen o al contenedor que la envuelve (widget de Elementor, elemento de WPBakery, etc.)."
+
+msgid "AGENCIA RSE"
+msgstr "AGENCIA RSE"
+
+msgid "https://agenciarse.com/"
+msgstr "https://agenciarse.com/"
+
+msgid "https://github.com/agenciaRSE/lupa-zoom"
+msgstr "https://github.com/agenciaRSE/lupa-zoom"
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Add the %s class to turn on hover zoom."
+msgstr "Añade la clase %s para activar el zoom al pasar el ratón."
+
+msgid "The class can go on the image itself or on any block that wraps it: an Elementor widget, a WPBakery element, a figure, a link… It also works on elements whose image is a CSS background-image."
+msgstr "La clase puede ir en la propia imagen o en cualquier contenedor: un widget de Elementor, un elemento de WPBakery, un figure, un enlace… También funciona en elementos cuya imagen es un background-image de CSS."
+
+msgid "CSS selector"
+msgstr "Selector CSS"
+
+msgid "Images it applies to. Separate several selectors with commas. Default: .lupa"
+msgstr "Imágenes a las que se aplica. Se admiten varios selectores separados por comas. Por defecto: .lupa"
+
+msgid "Mode"
+msgstr "Modo"
+
+msgid "Inner zoom (like WooCommerce)"
+msgstr "Zoom interno (como WooCommerce)"
+
+msgid "Lens + side panel"
+msgstr "Lupa + panel lateral"
+
+msgid "Override it per image with data-lupa-mode=\"lens\"."
+msgstr "Se puede sobrescribir por imagen con data-lupa-mode=\"lens\"."
+
+msgid "Zoom level"
+msgstr "Nivel de zoom"
+
+msgid "0 = automatic (uses the real resolution of the original file). Override it per image with data-lupa-zoom=\"2.5\"."
+msgstr "0 = automático (usa la resolución real del archivo original). Se puede sobrescribir con data-lupa-zoom=\"2.5\"."
+
+msgid "Automatic zoom limits"
+msgstr "Límites del zoom automático"
+
+msgid "Minimum"
+msgstr "Mínimo"
+
+msgid "Maximum"
+msgstr "Máximo"
+
+msgid "Lens size (px)"
+msgstr "Tamaño de la lupa (px)"
+
+msgid "Only in \"Lens + side panel\" mode."
+msgstr "Solo en modo «Lupa + panel lateral»."
+
+msgid "Panel width (px)"
+msgstr "Ancho del panel (px)"
+
+msgid "Fade (ms)"
+msgstr "Transición (ms)"
+
+msgid "Touch"
+msgstr "Táctil"
+
+msgid "Also on phones and tablets (press and drag)"
+msgstr "Activar también en móvil y tablet (mantener el dedo y arrastrar)"
+
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+msgid "Also apply to the product gallery images"
+msgstr "Aplicar también a las imágenes de la galería de producto"
+
+msgid "Turn off the WooCommerce zoom (avoids a double zoom)"
+msgstr "Desactivar el zoom nativo de WooCommerce (evita duplicados)"
+
+msgid "Usage"
+msgstr "Uso"
+
+msgid "HTML / editor:"
+msgstr "HTML / editor:"
+
+msgid "Page builder (class on the widget):"
+msgstr "Constructor visual (clase en el widget):"
+
+msgid "Elementor: Advanced tab → CSS Classes → lupa. WPBakery: Extra class name → lupa."
+msgstr "En Elementor: pestaña Avanzado → Clases CSS → lupa. En WPBakery: Extra class name → lupa."
+
+msgid "Shortcode:"
+msgstr "Shortcode:"
+
+msgid "Per-image attributes:"
+msgstr "Atributos por imagen:"
+
+msgid "URL of the high-resolution image (otherwise the srcset or src is used)."
+msgstr "URL de la imagen en alta resolución (si no, se usa el srcset o el src)."
+
+msgid "A fixed zoom level, e.g. 2.5"
+msgstr "Nivel de zoom concreto, p. ej. 2.5"
+
+msgid "Lens size in px (lens mode)."
+msgstr "Tamaño de la lupa en px (modo lens)."

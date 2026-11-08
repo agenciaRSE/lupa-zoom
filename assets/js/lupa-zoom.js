@@ -1,5 +1,5 @@
 /*!
- * Lupa Zoom v1.1.0
+ * Lupa Zoom v1.2.0
  * Efecto lupa tipo WooCommerce para cualquier imagen, sin dependencias.
  *
  * La clase (.lupa por defecto) puede ir en la propia <img> o en cualquier

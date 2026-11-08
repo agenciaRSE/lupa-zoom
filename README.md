@@ -3,11 +3,11 @@
 # 🔍 Lupa Zoom
 
 **El zoom de producto de WooCommerce, en cualquier imagen de cualquier tema de WordPress.**
-Añade la clase `lupa` y, al pasar el ratón, la imagen se amplía siguiendo el cursor. Sin jQuery, sin librerías, unos 9 KB.
+Añade la clase `lupa` y, al pasar el ratón, la imagen se amplía siguiendo el cursor. Sin jQuery, sin librerías, unos 7 KB comprimido.
 
 [![WordPress 5.6+](https://img.shields.io/badge/WordPress-5.6%2B-21759B?style=for-the-badge&logo=wordpress&logoColor=white)](readme.txt)
 [![PHP 7.2+](https://img.shields.io/badge/PHP-7.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](lupa-zoom.php)
-[![Versión 1.1.0](https://img.shields.io/badge/versión-1.1.0-0a0a0a?style=for-the-badge)](readme.txt)
+[![Versión 1.2.0](https://img.shields.io/badge/versión-1.2.0-0a0a0a?style=for-the-badge)](readme.txt)
 [![Licencia GPLv2+](https://img.shields.io/badge/licencia-GPLv2%2B-a855f7?style=for-the-badge)](LICENSE)
 
 [Demo](#-pruébalo-en-local) · [Uso](#-uso) · [English](#-in-english) · [Contribuir](#-contribuir)
@@ -56,8 +56,8 @@ El zoom de las fichas de WooCommerce es justo lo que quieres en un catálogo, un
 **Shortcode:**
 
 ```text
-[lupa id="123"]
-[lupa src="foto.jpg" large="foto-full.jpg" zoom="3" mode="lens"]
+[lupa_zoom id="123"]
+[lupa_zoom src="foto.jpg" large="foto-full.jpg" zoom="3" mode="lens"]
 ```
 
 **Atributos por imagen:** `data-lupa-src`, `data-lupa-zoom`, `data-lupa-mode`, `data-lupa-lens`.
@@ -89,7 +89,7 @@ Los pull requests son bienvenidos: pequeños, con una explicación del porqué y
 
 ## 🇬🇧 In English
 
-**Lupa Zoom** brings WooCommerce-style hover zoom to any image in any WordPress theme. Add the `lupa` class to an image or to the block that wraps it (Elementor, WPBakery, figures, links…) and the image zooms in under the cursor. It works with CSS background images, respects `object-fit`, supports lazy-load and dynamic content, offers an inner-zoom or lens-plus-panel mode, and ships with no jQuery or dependencies (~9 KB). Shortcode: `[lupa id="123"]`. Contributions are welcome: open an issue or a pull request.
+**Lupa Zoom** brings WooCommerce-style hover zoom to any image in any WordPress theme. Add the `lupa` class to an image or to the block that wraps it (Elementor, WPBakery, figures, links…) and the image zooms in under the cursor. It works with CSS background images, respects `object-fit`, supports lazy-load and dynamic content, offers an inner-zoom or lens-plus-panel mode, and ships with no jQuery or dependencies (~7 KB gzipped). Shortcode: `[lupa_zoom id="123"]`. Contributions are welcome: open an issue or a pull request.
 
 ## 📄 Licencia
 

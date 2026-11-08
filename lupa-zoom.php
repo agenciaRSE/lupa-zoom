@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       Lupa Zoom
- * Plugin URI:        https://agenciarse.com/
- * Description:       Efecto lupa (zoom al pasar el ratón) tipo WooCommerce para cualquier imagen de cualquier tema. Basta con añadir la clase <code>lupa</code> a la imagen o al contenedor que la envuelve (widget de Elementor, WPBakery, etc.).
- * Version:           1.1.0
+ * Plugin URI:        https://github.com/agenciaRSE/lupa-zoom
+ * Description:       WooCommerce-style hover zoom for any image in any theme. Add the <code>lupa</code> CSS class to the image or to the block that wraps it (Elementor widget, WPBakery element, etc.).
+ * Version:           1.2.0
  * Requires at least: 5.6
  * Requires PHP:      7.2
  * Author:            AGENCIA RSE
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LUPA_ZOOM_VERSION', '1.1.0' );
+define( 'LUPA_ZOOM_VERSION', '1.2.0' );
 define( 'LUPA_ZOOM_FILE', __FILE__ );
 define( 'LUPA_ZOOM_URL', plugin_dir_url( __FILE__ ) );
 define( 'LUPA_ZOOM_PATH', plugin_dir_path( __FILE__ ) );
@@ -41,7 +41,7 @@ final class Lupa_Zoom {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( LUPA_ZOOM_FILE ), array( $this, 'action_links' ) );
-		add_shortcode( 'lupa', array( $this, 'shortcode' ) );
+		add_shortcode( 'lupa_zoom', array( $this, 'shortcode' ) );
 	}
 
 	/* ---------------------------------------------------------------------
@@ -110,7 +110,7 @@ final class Lupa_Zoom {
 
 	public function action_links( $links ) {
 		$url = admin_url( 'options-general.php?page=lupa-zoom' );
-		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Ajustes', 'lupa-zoom' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'lupa-zoom' ) . '</a>' );
 		return $links;
 	}
 
@@ -182,8 +182,8 @@ final class Lupa_Zoom {
 	}
 
 	/**
-	 * [lupa src="..." large="..." alt="" zoom="2.5" mode="inner"]
-	 * También acepta un ID de adjunto: [lupa id="123"]
+	 * [lupa_zoom src="..." large="..." alt="" zoom="2.5" mode="inner"]
+	 * También acepta un ID de adjunto: [lupa_zoom id="123"]
 	 */
 	public function shortcode( $atts ) {
 		$atts = shortcode_atts(
@@ -198,7 +198,7 @@ final class Lupa_Zoom {
 				'size'  => 'large',
 			),
 			$atts,
-			'lupa'
+			'lupa_zoom'
 		);
 
 		$src   = $atts['src'];
@@ -276,79 +276,79 @@ final class Lupa_Zoom {
 				<?php
 				printf(
 					/* translators: %s: CSS class */
-					esc_html__( 'Añade la clase %s para activar el zoom al pasar el ratón.', 'lupa-zoom' ),
+					esc_html__( 'Add the %s class to turn on hover zoom.', 'lupa-zoom' ),
 					'<code>lupa</code>'
 				);
 				?>
 			</p>
 			<p class="description">
-				<?php esc_html_e( 'La clase puede ir en la propia imagen o en cualquier contenedor: un widget de Elementor, un elemento de WPBakery, un figure, un enlace… También funciona en elementos cuya imagen es un background-image de CSS.', 'lupa-zoom' ); ?>
+				<?php esc_html_e( 'The class can go on the image itself or on any block that wraps it: an Elementor widget, a WPBakery element, a figure, a link… It also works on elements whose image is a CSS background-image.', 'lupa-zoom' ); ?>
 			</p>
 
 			<form method="post" action="options.php">
 				<?php settings_fields( 'lupa_zoom_group' ); ?>
 				<table class="form-table" role="presentation">
 					<tr>
-						<th scope="row"><label for="lz-selector"><?php esc_html_e( 'Selector CSS', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-selector"><?php esc_html_e( 'CSS selector', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<input type="text" id="lz-selector" class="regular-text code" name="<?php echo esc_attr( self::OPTION ); ?>[selector]" value="<?php echo esc_attr( $s['selector'] ); ?>" />
-							<p class="description"><?php esc_html_e( 'Imágenes a las que se aplica. Se admiten varios selectores separados por comas. Por defecto: .lupa', 'lupa-zoom' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Images it applies to. Separate several selectors with commas. Default: .lupa', 'lupa-zoom' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="lz-mode"><?php esc_html_e( 'Modo', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-mode"><?php esc_html_e( 'Mode', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<select id="lz-mode" name="<?php echo esc_attr( self::OPTION ); ?>[mode]">
-								<option value="inner" <?php selected( $s['mode'], 'inner' ); ?>><?php esc_html_e( 'Zoom interno (como WooCommerce)', 'lupa-zoom' ); ?></option>
-								<option value="lens" <?php selected( $s['mode'], 'lens' ); ?>><?php esc_html_e( 'Lupa + panel lateral', 'lupa-zoom' ); ?></option>
+								<option value="inner" <?php selected( $s['mode'], 'inner' ); ?>><?php esc_html_e( 'Inner zoom (like WooCommerce)', 'lupa-zoom' ); ?></option>
+								<option value="lens" <?php selected( $s['mode'], 'lens' ); ?>><?php esc_html_e( 'Lens + side panel', 'lupa-zoom' ); ?></option>
 							</select>
-							<p class="description"><?php esc_html_e( 'Se puede sobrescribir por imagen con data-lupa-mode="lens".', 'lupa-zoom' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Override it per image with data-lupa-mode="lens".', 'lupa-zoom' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="lz-zoom"><?php esc_html_e( 'Nivel de zoom', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-zoom"><?php esc_html_e( 'Zoom level', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<input type="number" step="0.1" min="0" max="20" id="lz-zoom" name="<?php echo esc_attr( self::OPTION ); ?>[zoom]" value="<?php echo esc_attr( $s['zoom'] ); ?>" />
-							<p class="description"><?php esc_html_e( '0 = automático (usa la resolución real del archivo original). Se puede sobrescribir con data-lupa-zoom="2.5".', 'lupa-zoom' ); ?></p>
+							<p class="description"><?php esc_html_e( '0 = automatic (uses the real resolution of the original file). Override it per image with data-lupa-zoom="2.5".', 'lupa-zoom' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php esc_html_e( 'Límites del zoom automático', 'lupa-zoom' ); ?></th>
+						<th scope="row"><?php esc_html_e( 'Automatic zoom limits', 'lupa-zoom' ); ?></th>
 						<td>
-							<label><?php esc_html_e( 'Mínimo', 'lupa-zoom' ); ?>
+							<label><?php esc_html_e( 'Minimum', 'lupa-zoom' ); ?>
 								<input type="number" step="0.1" min="1" max="20" name="<?php echo esc_attr( self::OPTION ); ?>[min_zoom]" value="<?php echo esc_attr( $s['min_zoom'] ); ?>" />
 							</label>
 							&nbsp;
-							<label><?php esc_html_e( 'Máximo', 'lupa-zoom' ); ?>
+							<label><?php esc_html_e( 'Maximum', 'lupa-zoom' ); ?>
 								<input type="number" step="0.1" min="1" max="20" name="<?php echo esc_attr( self::OPTION ); ?>[max_zoom]" value="<?php echo esc_attr( $s['max_zoom'] ); ?>" />
 							</label>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="lz-lens"><?php esc_html_e( 'Tamaño de la lupa (px)', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-lens"><?php esc_html_e( 'Lens size (px)', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<input type="number" min="40" max="800" id="lz-lens" name="<?php echo esc_attr( self::OPTION ); ?>[lens_size]" value="<?php echo esc_attr( $s['lens_size'] ); ?>" />
-							<p class="description"><?php esc_html_e( 'Solo en modo «Lupa + panel lateral».', 'lupa-zoom' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Only in "Lens + side panel" mode.', 'lupa-zoom' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="lz-panel"><?php esc_html_e( 'Ancho del panel (px)', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-panel"><?php esc_html_e( 'Panel width (px)', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<input type="number" min="120" max="1200" id="lz-panel" name="<?php echo esc_attr( self::OPTION ); ?>[panel_width]" value="<?php echo esc_attr( $s['panel_width'] ); ?>" />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="lz-fade"><?php esc_html_e( 'Transición (ms)', 'lupa-zoom' ); ?></label></th>
+						<th scope="row"><label for="lz-fade"><?php esc_html_e( 'Fade (ms)', 'lupa-zoom' ); ?></label></th>
 						<td>
 							<input type="number" min="0" max="2000" id="lz-fade" name="<?php echo esc_attr( self::OPTION ); ?>[fade]" value="<?php echo esc_attr( $s['fade'] ); ?>" />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><?php esc_html_e( 'Táctil', 'lupa-zoom' ); ?></th>
+						<th scope="row"><?php esc_html_e( 'Touch', 'lupa-zoom' ); ?></th>
 						<td>
 							<label>
 								<input type="checkbox" value="1" name="<?php echo esc_attr( self::OPTION ); ?>[touch]" <?php checked( $s['touch'], 1 ); ?> />
-								<?php esc_html_e( 'Activar también en móvil/tablet (mantener el dedo y arrastrar)', 'lupa-zoom' ); ?>
+								<?php esc_html_e( 'Also on phones and tablets (press and drag)', 'lupa-zoom' ); ?>
 							</label>
 						</td>
 					</tr>
@@ -357,11 +357,11 @@ final class Lupa_Zoom {
 						<td>
 							<label>
 								<input type="checkbox" value="1" name="<?php echo esc_attr( self::OPTION ); ?>[woo_gallery]" <?php checked( $s['woo_gallery'], 1 ); ?> />
-								<?php esc_html_e( 'Aplicar también a las imágenes de la galería de producto', 'lupa-zoom' ); ?>
+								<?php esc_html_e( 'Also apply to the product gallery images', 'lupa-zoom' ); ?>
 							</label><br />
 							<label>
 								<input type="checkbox" value="1" name="<?php echo esc_attr( self::OPTION ); ?>[woo_disable]" <?php checked( $s['woo_disable'], 1 ); ?> />
-								<?php esc_html_e( 'Desactivar el zoom nativo de WooCommerce (evita duplicados)', 'lupa-zoom' ); ?>
+								<?php esc_html_e( 'Turn off the WooCommerce zoom (avoids a double zoom)', 'lupa-zoom' ); ?>
 							</label>
 						</td>
 					</tr>
@@ -370,23 +370,23 @@ final class Lupa_Zoom {
 			</form>
 
 			<hr />
-			<h2><?php esc_html_e( 'Uso', 'lupa-zoom' ); ?></h2>
+			<h2><?php esc_html_e( 'Usage', 'lupa-zoom' ); ?></h2>
 			<p><strong><?php esc_html_e( 'HTML / editor:', 'lupa-zoom' ); ?></strong></p>
-			<pre style="background:#fff;padding:12px;border:1px solid #dcdcde;overflow:auto;">&lt;img src="foto-800.jpg" data-lupa-src="foto-2000.jpg" class="lupa" alt="" /&gt;</pre>
-			<p><strong><?php esc_html_e( 'Constructor visual (clase en el widget):', 'lupa-zoom' ); ?></strong></p>
+			<pre style="background:#fff;padding:12px;border:1px solid #dcdcde;overflow:auto;">&lt;img src="photo-800.jpg" data-lupa-src="photo-2000.jpg" class="lupa" alt="" /&gt;</pre>
+			<p><strong><?php esc_html_e( 'Page builder (class on the widget):', 'lupa-zoom' ); ?></strong></p>
 			<pre style="background:#fff;padding:12px;border:1px solid #dcdcde;overflow:auto;">&lt;div class="elementor-widget-image lupa"&gt;
-    &lt;div class="elementor-widget-container"&gt;&lt;img src="foto.jpg" /&gt;&lt;/div&gt;
+    &lt;div class="elementor-widget-container"&gt;&lt;img src="photo.jpg" /&gt;&lt;/div&gt;
 &lt;/div&gt;</pre>
-			<p class="description"><?php esc_html_e( 'En Elementor: pestaña Avanzado → Clases CSS → lupa. En WPBakery: Extra class name → lupa.', 'lupa-zoom' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Elementor: Advanced tab → CSS Classes → lupa. WPBakery: Extra class name → lupa.', 'lupa-zoom' ); ?></p>
 			<p><strong><?php esc_html_e( 'Shortcode:', 'lupa-zoom' ); ?></strong></p>
-			<pre style="background:#fff;padding:12px;border:1px solid #dcdcde;overflow:auto;">[lupa id="123"]
-[lupa src="/wp-content/uploads/foto.jpg" large="/wp-content/uploads/foto-full.jpg" zoom="3"]</pre>
-			<p><strong><?php esc_html_e( 'Atributos por imagen:', 'lupa-zoom' ); ?></strong></p>
+			<pre style="background:#fff;padding:12px;border:1px solid #dcdcde;overflow:auto;">[lupa_zoom id="123"]
+[lupa_zoom src="/wp-content/uploads/photo.jpg" large="/wp-content/uploads/photo-full.jpg" zoom="3"]</pre>
+			<p><strong><?php esc_html_e( 'Per-image attributes:', 'lupa-zoom' ); ?></strong></p>
 			<ul style="list-style:disc;padding-left:20px;">
-				<li><code>data-lupa-src</code> — <?php esc_html_e( 'URL de la imagen en alta resolución (si no, se usa el srcset o el src).', 'lupa-zoom' ); ?></li>
-				<li><code>data-lupa-zoom</code> — <?php esc_html_e( 'Nivel de zoom concreto, p. ej. 2.5', 'lupa-zoom' ); ?></li>
+				<li><code>data-lupa-src</code> — <?php esc_html_e( 'URL of the high-resolution image (otherwise the srcset or src is used).', 'lupa-zoom' ); ?></li>
+				<li><code>data-lupa-zoom</code> — <?php esc_html_e( 'A fixed zoom level, e.g. 2.5', 'lupa-zoom' ); ?></li>
 				<li><code>data-lupa-mode</code> — <code>inner</code> | <code>lens</code></li>
-				<li><code>data-lupa-lens</code> — <?php esc_html_e( 'Tamaño de la lupa en px (modo lens).', 'lupa-zoom' ); ?></li>
+				<li><code>data-lupa-lens</code> — <?php esc_html_e( 'Lens size in px (lens mode).', 'lupa-zoom' ); ?></li>
 			</ul>
 		</div>
 		<?php
